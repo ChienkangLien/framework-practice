@@ -1,0 +1,34 @@
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>部門資料修改</title>
+</head>
+<body>
+	<h3>部門資料修改</h3>
+	<font color='red' th:if="${errorMsgs!=null and !errorMsgs.isEmpty()}">請修正以下錯誤:
+		<ul>
+			<li th:each="message:${errorMsgs}" th:text="${message}"></li>
+		</ul>
+	</font>
+	<form method="POST" th:action="@{/dept/update}" name="form1">
+		<table>
+			<tr>
+				<td>部門編號:<font color=red><b>*</b></font></td>
+				<td th:text="${deptVO.deptno}"></td>
+			</tr>
+			<tr>
+				<td>部門名稱:</td>
+				<td><input type="TEXT" name="dname" size="45"
+					th:value="${deptVO.dname}" /></td>
+			</tr>
+			<tr>
+				<td>部門基地:</td>
+				<td><input type="TEXT" name="loc" size="45"
+					th:value="${deptVO.loc}" /></td>
+			</tr>
+		</table>
+		<br /> <input type="hidden" name="deptno" th:value="${deptVO.deptno}">
+		<a th:href="@{/}">回首頁</a> <input type="submit" value="送出修改">
+	</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>部門資料</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/table.css}">
+</head>
+<body>
+	<h3>部門資料</h3>
+	<table>
+		<tr>
+			<th>部門編號</th>
+			<th>部門名稱</th>
+			<th>部門基地</th>
+		</tr>
+		<tr align='center' valign='middle'>
+			<td th:text="${deptVO.deptno}"></td>
+			<td th:text="${deptVO.dname}"></td>
+			<td th:text="${deptVO.loc}"></td>
+		</tr>
+	</table>
+	<br />
+	<a th:href="@{/}">回首頁</a>
+</body>
+</html>

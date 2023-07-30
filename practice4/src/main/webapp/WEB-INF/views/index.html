@@ -1,0 +1,71 @@
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>IBM Emp</title>
+</head>
+<body>
+	<div>
+		<h2>IBM Emp</h2>
+	</div>
+	<div>
+		<h3>員工資料查詢</h3>
+		<font th:if="${errorMsgs!=null and !errorMsgs.isEmpty()}" color='red'>請修正以下錯誤:
+			<ul>
+				<li th:each="message:${errorMsgs}" th:text="${message}"></li>
+			</ul>
+		</font>
+		<ul>
+			<li><a th:href="@{/emp/listAll}">List</a> all Emps.</li>
+			<br>
+
+			<li>
+				<form method="POST" th:action="@{/emp/getOne_For_Display}">
+					<b>輸入員工編號 (如7001):</b> <input type="text" name="empno"> <input
+						type="submit" value="送出">
+				</form>
+			</li>
+
+			<li>
+				<form method="POST" th:action="@{/emp/getOne_For_Display}">
+					<b>選擇員工編號:</b> <select size="1" name="empno">
+						<option th:each="empVO:${empVOs}" th:value="${empVO.empno}"
+							th:text="${empVO.empno}"></option>
+					</select> <input type="submit" value="送出">
+				</form>
+			</li>
+
+			<li>
+				<form method="POST" th:action="@{/emp/getOne_For_Display}">
+					<b>選擇員工姓名:</b> <select size="1" name="empno">
+						<option th:each="empVO:${empVOs}" th:value="${empVO.empno}"
+							th:text="${empVO.ename}"></option>
+					</select> <input type="submit" value="送出">
+				</form>
+			</li>
+
+			<li>
+				<form method="POST" th:action="@{/dept/listEmps_ByDeptno_A}">
+					<b><font color=blue>選擇部門:</font></b> <select size="1" name="deptno">
+						<option th:each="deptVO:${deptVOs}" th:value="${deptVO.deptno}"
+							th:text="${deptVO.dname}"></option>
+					</select> <input type="submit" value="送出">
+				</form>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<h3>員工管理</h3>
+		<ul>
+			<li><a th:href="@{/emp/add}">Add</a> a new Emp.</li>
+		</ul>
+	</div>
+	<div>
+		<h3>
+			<font color=blue>部門管理</font>
+		</h3>
+		<ul>
+			<li><a th:href="@{/dept/listAll}">List</a> all Depts.</li>
+		</ul>
+	</div>
+</body>
+</html>
