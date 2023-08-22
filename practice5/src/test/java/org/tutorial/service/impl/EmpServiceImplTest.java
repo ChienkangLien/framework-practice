@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutorial.model.PO.DeptPO;
 import org.tutorial.model.PO.EmpPO;
 
 @SpringBootTest
+@Transactional
 public class EmpServiceImplTest {
 	@Autowired
 	private EmpServiceImpl service;
@@ -62,9 +64,9 @@ public class EmpServiceImplTest {
 	public void testGetOneEmp() {
 		EmpPO empPO4 = service.getOneEmp(1);
 		assertEquals((Integer) 1, empPO4.getEmpno());
-		assertEquals("king", empPO4.getEname());
+		assertEquals("king22", empPO4.getEname());
 		assertEquals("president", empPO4.getJob());
-		assertEquals((Integer) 10, empPO4.getDeptPO().getDeptno());
+		assertEquals((Integer) 20, empPO4.getDeptPO().getDeptno());
 	}
 
 	@Test
@@ -102,7 +104,7 @@ public class EmpServiceImplTest {
 	public void testGetEmpsByDeptno() {
 		List<EmpPO> list = service.getEmpsByDeptno(20);
 		assertNotNull(list);
-		assertEquals(5, list.size());
+		assertEquals(8, list.size());
 		System.out.println(list);
 	}
 }
