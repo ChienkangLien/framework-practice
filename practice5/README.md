@@ -9,3 +9,7 @@ PO 導入：persistent object、ORM 框架中資料庫 table 對應的 java 物�
 .yml：可替代.properties，注意換行及空格
 
 配置類：Initializer 自動配置(簡化 web 配置/根配置/請求註冊)、不需 AppConfig 及 WebConfig 中關於 Template 和 ViewResolver 的配置、Converter 拉出來建立成一個類、靜態資源配置改寫在.yml 中
+
+cache .yml 配置供應商，於 service 類加上相關註解@Cache...、啟動類加上啟動註解
+
+task 啟動類加上啟動註解，在方法上加上@Scheduled
