@@ -13,3 +13,5 @@ PO 導入：persistent object、ORM 框架中資料庫 table 對應的 java 物�
 cache .yml 配置供應商，於 service 類加上相關註解@Cache...、啟動類加上啟動註解
 
 task 啟動類加上啟動註解，在方法上加上@Scheduled
+
+spring-boot-admin-starter-client：.yml 配置客戶端
