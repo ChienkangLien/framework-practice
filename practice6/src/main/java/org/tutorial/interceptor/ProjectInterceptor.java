@@ -15,8 +15,8 @@ public class ProjectInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// 可透過HandlerMethod來做其他操作
 		// 加上try-catch，如此才能正常處理404錯誤
+		// 可透過HandlerMethod來做其他操作
 		try {
 			HandlerMethod hm = (HandlerMethod) handler;
 			System.out.println("HandlerMethod.getName(): " + hm.getMethod().getName());
