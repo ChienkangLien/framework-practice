@@ -1,6 +1,9 @@
 package org.tutorial.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +26,6 @@ import org.tutorial.service.EmpService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -89,4 +91,12 @@ public class EmpController {
 				.ok(empService.getEmpsByPageAndSort(pageNumber, pageSize, sortField.getValue(), sortDirection));
 	}
 
+	@GetMapping("/exportToExcel")
+	@ApiOperation(value = "Export employees to Excel", notes = "Exports all employees to an Excel file.")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition", "attachment; filename=employees.xlsx");
+
+        empService.exportEmployeesToExcel(response.getOutputStream());
+    }
 }

@@ -1,5 +1,6 @@
 package org.tutorial.service;
 
+import java.io.OutputStream;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,5 @@ public interface EmpService {
     
     List<EmpDTO> getEmpsByDeptno(Integer deptno);
 
+    void exportEmployeesToExcel(OutputStream outputStream);
 }

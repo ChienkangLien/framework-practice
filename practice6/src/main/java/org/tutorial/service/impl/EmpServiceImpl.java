@@ -1,10 +1,16 @@
 package org.tutorial.service.impl;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -113,6 +119,45 @@ public class EmpServiceImpl implements EmpService {
 //				.collect(Collectors.toList());
 //		deptDTO.setEmpDTOs(empDTOs);
 		return deptDTO;
+	}
+
+	@Override
+	public void exportEmployeesToExcel(OutputStream outputStream) {
+		List<EmpDTO> employees = repository.findAll().stream().map(empPO -> convertEmpToDTO(empPO)).collect(Collectors.toList());
+
+        // 創建一個工作簿和工作表，使用Apache POI或其他Excel庫
+        // 這里只是一個示例，需要根據具體庫的文檔進行實際操作
+        Workbook workbook = new HSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Employee Data");
+
+        // 創建標題行
+        Row headerRow = sheet.createRow(0);
+        headerRow.createCell(0).setCellValue("EmpNo");
+        headerRow.createCell(1).setCellValue("EName");
+        headerRow.createCell(2).setCellValue("Job");
+        headerRow.createCell(3).setCellValue("HireDate");
+        headerRow.createCell(4).setCellValue("Salary");
+        headerRow.createCell(5).setCellValue("Commission");
+
+        // 填充數據行
+        int rowNum = 1;
+        for (EmpDTO employee : employees) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(employee.getEmpno());
+            row.createCell(1).setCellValue(employee.getEname());
+            row.createCell(2).setCellValue(employee.getJob());
+            row.createCell(3).setCellValue(employee.getHiredate().toString());
+            row.createCell(4).setCellValue(employee.getSal());
+            row.createCell(5).setCellValue(employee.getComm());
+        }
+
+        // 寫入Excel數據到輸出流
+        try {
+			workbook.write(outputStream);
+			workbook.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

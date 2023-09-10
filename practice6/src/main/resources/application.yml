@@ -1,6 +1,3 @@
-server:
-  port: 8082
-  
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/practice?serverTimezone=Asia/Taipei
@@ -19,7 +16,12 @@ spring:
   redis:
     port: 6379
     host: localhost
-
+    
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+      
+#以下為日誌配置      
 #logging:
 #  group:
 #    mygroup1: org.tutorial.aop,org.tutorial.controller
