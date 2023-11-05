@@ -1,0 +1,59 @@
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>所有部門</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/table.css}">
+</head>
+<body>
+	<h3>所有部門</h3>
+	<font color='red' th:if="${errorMsgs!=null and !errorMsgs.isEmpty()}">請修正以下錯誤:
+		<ul>
+			<li th:each="message:${errorMsgs}" th:text="${message}"></li>
+		</ul>
+	</font>
+
+	<table>
+		<tr>
+			<th>部門編號</th>
+			<th>部門名稱</th>
+			<th>部門基地</th>
+			<th>修改</th>
+			<th>刪除<font color=red>(關聯測試)</font></th>
+			<th>查詢部門員工</th>
+		</tr>
+
+		<tr align='center' valign='middle' th:each="deptVO:${deptVOs}">
+			<td th:text="${deptVO.deptno}"></td>
+			<td th:text="${deptVO.dname}"></td>
+			<td th:text="${deptVO.loc}"></td>
+			<td>
+				<form method="POST" th:action="@{/dept/getOne_For_Update_Dept}">
+					<input type="submit" value="修改"> <input type="hidden"
+						name="deptno" th:value="${deptVO.deptno}">
+				</form>
+			</td>
+			<td>
+				<form method="POST" th:action="@{/dept/delete_Dept}">
+					<input type="submit" value="刪除"> <input type="hidden"
+						name="deptno" th:value="${deptVO.deptno}">
+				</form>
+			</td>
+			<td>
+				<form method="POST" th:action="@{/dept/listEmps_ByDeptno_B}">
+					<input type="submit" value="送出查詢"> <input type="hidden"
+						name="deptno" th:value="${deptVO.deptno}">
+				</form>
+			</td>
+		</tr>
+	</table>
+	<br />
+	<div th:if="${listEmps_ByDeptno != null}">
+		<div th:replace="/dept/listEmpsByDeptno :: listEmps"></div>
+	</div>
+	<div th:unless="${listEmps_ByDeptno != null}">
+		<br /> <a th:href="@{/}">回首頁</a>
+	</div>
+
+</body>
+</html>
