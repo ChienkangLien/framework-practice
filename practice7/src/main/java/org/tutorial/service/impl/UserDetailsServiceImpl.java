@@ -17,20 +17,28 @@ import org.tutorial.repository.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	UserPO user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("Can't find user: " + username);
-        }
-
-        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-        for (RolePO role : user.getRolePOs()) {
-        	authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserPO user = userRepository.findByUsername(username);
+		if (user == null) {
+			throw new UsernameNotFoundException("Can't find user: " + username);
 		}
-        return new User(user.getUsername(), user.getPassword(), authorities);
-    }
+
+		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		for (RolePO role : user.getRolePOs()) {
+			authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+		}
+
+		// 基本建構子
+//		return new User(user.getUsername(), user.getPassword(), authorities);
+
+//		enabled 是否可用
+//		accountNonExpired 帳戶是否失效
+//		credentialsNonExpired 密碼是否失效
+//		accountNonLocked 帳戶是否鎖定
+		return new User(user.getUsername(), user.getPassword(), user.getStatus() == 1, true, true, true, authorities);
+	}
 }

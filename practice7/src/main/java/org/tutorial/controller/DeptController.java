@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ public class DeptController  {
 	@Autowired
 	EmpService empService;
 
+	@Secured("ROLE_DEPT")
 	// 加入VO概念，PO主要關注數據的存儲和持久化，而VO主要關注數據在業務邏輯層或展示層的傳遞和使用
 	@GetMapping("/listAll")
     public String listAll(Model model) {

@@ -44,4 +44,10 @@ spring security
 	 CONSTRAINT user_role_primary_key PRIMARY KEY (uid, rid),
 	 CONSTRAINT FOREIGN KEY (uid) REFERENCES `user` (id),
 	 CONSTRAINT FOREIGN KEY (rid) REFERENCES `role` (id));
+	 
+	CREATE TABLE persistent_logins (
+      username VARCHAR(64) NOT NULL,
+      series VARCHAR(64) PRIMARY KEY,
+      token VARCHAR(64) NOT NULL,
+      last_used TIMESTAMP NOT NULL);
     ```

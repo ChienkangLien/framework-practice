@@ -20,7 +20,7 @@ public class IndexController {
 	private DeptService deptService;
 	@Autowired
 	EmpService empService;
-	
+
 	@GetMapping("/")
 	public String index(Model model) {
 		List<DeptPO> deptPOs = deptService.getAll();
@@ -32,18 +32,13 @@ public class IndexController {
 		List<EmpVO> empVOs = ConvertToVOUtil.convertToEmpVOList(empPOs);
 		System.out.println(empVOs);
 		model.addAttribute("empVOs", empVOs);
-		
+
 		return "index";
 	}
-	
+
 	@GetMapping("/login")
 	public String login(Model model) {
 		return "login";
-	}
-	
-	@GetMapping("/helloSecurity")
-	public String hello(Model model) {
-		return "helloSecurity";
 	}
 
 }

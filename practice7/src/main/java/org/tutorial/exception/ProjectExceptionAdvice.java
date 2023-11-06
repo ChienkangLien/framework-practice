@@ -1,5 +1,6 @@
 package org.tutorial.exception;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -8,6 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 // 所以即便不配置這個類也可以
 @ControllerAdvice
 public class ProjectExceptionAdvice {
+	
+	@ExceptionHandler(AccessDeniedException.class) // spring security拋出的異常
+	public String do403Exception() {
+		return "/403";
+	}
 	@ExceptionHandler(Exception.class)
 	public String doException() {
 		return "/error";
